@@ -26,12 +26,16 @@ function verifyPassword(password, salt, hash) {
 
 class UserController {
 
-    login = async (req, res, next) => {
-        const { username, password } = req.body
+    index = async (req, res, next) => {
+        res.json("ok")    
+    }
 
-        // lấy ra thông tin người dùng theo username
+    login = async (req, res, next) => {
+        const { email, password } = req.body
+
+        // lấy ra thông tin người dùng theo email
         const data = await UserSchema.findOne(
-            { username: username }
+            { email: email }
         )
         if (verifyPassword(password, data.passwordHashed.salt, data.passwordHashed.hash)) {
             res.status(200).json({
@@ -49,7 +53,8 @@ class UserController {
     }
     
     register = async (req, res, next) => {
-
+        res.redirect("http://localhost:5500/form2.html")
+        
     }
     
 } 
